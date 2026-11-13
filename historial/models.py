@@ -35,7 +35,7 @@ class Prestamo(models.Model):
                 p.cantidad
                 for p in self.herramienta.prestamos.filter(devuelto=False)
             )
-            disponibles = self.herramienta.cantidad_total - prestados
+            disponibles = self.herramienta.cantidad - prestados
             if self.cantidad > disponibles:
                 raise ValidationError(
                     f'No hay stock suficiente. Disponibles: {disponibles}.'

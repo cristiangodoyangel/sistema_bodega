@@ -27,7 +27,7 @@
             <tr>
                 <td>{{ a.nombre }}</td>
                 <td>{{ a.apellido }}</td>
-                <td><span class="badge devuelto">{{ a.get_curso_display }}</span></td>
+                <td><span class="badge devuelto">{{ a.curso }}</span></td>
                 <td>
                     <div class="acciones">
                         <a href="{% url 'alumno_editar' a.pk %}" class="btn btn-secundario btn-pequeno">Editar</a>

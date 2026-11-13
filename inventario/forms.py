@@ -6,4 +6,4 @@ from .models import Herramienta
 class HerramientaForm(forms.ModelForm):
     class Meta:
         model = Herramienta
-        fields = ['nombre', 'descripcion', 'cantidad_total', 'ubicacion']
+        fields = ['nombre_comun', 'nombre_tecnico', 'medida', 'cantidad', 'estado']

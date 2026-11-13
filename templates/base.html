@@ -10,19 +10,21 @@
 <body>
     {% if user.is_authenticated %}
     <nav class="navbar">
-        <a href="{% url 'inicio' %}" class="brand">
-            <span class="logo">B</span>
-            <span>Bodega · Liceo A-26</span>
-        </a>
-        <div class="nav-links">
-            <a href="{% url 'inicio' %}" class="{% if 'inicio' == request.resolver_match.url_name %}activo{% endif %}">Inicio</a>
-            <a href="{% url 'herramienta_lista' %}" class="{% if 'herramienta' in request.resolver_match.url_name %}activo{% endif %}">Inventario</a>
-            <a href="{% url 'alumno_lista' %}" class="{% if 'alumno' in request.resolver_match.url_name %}activo{% endif %}">Alumnos</a>
-            <a href="{% url 'prestamo_lista' %}" class="{% if 'prestamo' in request.resolver_match.url_name %}activo{% endif %}">Historial</a>
-            <form action="{% url 'logout' %}" method="post" style="margin:0">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-pequeno salir">Salir</button>
-            </form>
+        <div class="navbar-contenido">
+            <a href="{% url 'inicio' %}" class="brand">
+                <img src="{% static 'logo.png' %}" alt="Logo" class="logo">
+                <span>Bodega · Liceo A-26</span>
+            </a>
+            <div class="nav-links">
+                <a href="{% url 'inicio' %}" class="{% if 'inicio' == request.resolver_match.url_name %}activo{% endif %}">Inicio</a>
+                <a href="{% url 'herramienta_lista' %}" class="{% if 'herramienta' in request.resolver_match.url_name %}activo{% endif %}">Inventario</a>
+                <a href="{% url 'alumno_lista' %}" class="{% if 'alumno' in request.resolver_match.url_name %}activo{% endif %}">Alumnos</a>
+                <a href="{% url 'prestamo_lista' %}" class="{% if 'prestamo' in request.resolver_match.url_name %}activo{% endif %}">Historial</a>
+                <form action="{% url 'logout' %}" method="post" style="margin:0">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-pequeno salir">Salir</button>
+                </form>
+            </div>
         </div>
     </nav>
     {% endif %}

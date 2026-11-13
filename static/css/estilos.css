@@ -32,12 +32,18 @@ a {
 .navbar {
     background: var(--azul);
     color: var(--blanco);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-contenido {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 20px;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 24px;
-    height: 64px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .brand {
@@ -49,15 +55,10 @@ a {
 }
 
 .brand .logo {
-    background: var(--amarillo);
-    color: var(--azul);
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    display: block;
 }
 
 .nav-links {

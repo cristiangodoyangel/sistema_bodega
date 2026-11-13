@@ -16,18 +16,22 @@
     <table>
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Total</th>
+                <th>Nombre común</th>
+                <th>Nombre técnico</th>
+                <th>Medida</th>
+                <th>Cantidad</th>
                 <th>Disponibles</th>
-                <th>Ubicación</th>
+                <th>Estado</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             {% for h in herramientas %}
             <tr>
-                <td>{{ h.nombre }}</td>
-                <td>{{ h.cantidad_total }}</td>
+                <td>{{ h.nombre_comun }}</td>
+                <td>{{ h.nombre_tecnico|default:"—" }}</td>
+                <td>{{ h.medida|default:"—" }}</td>
+                <td>{{ h.cantidad }}</td>
                 <td>
                     {% if h.disponibles > 0 %}
                     <span class="badge ok">{{ h.disponibles }}</span>
@@ -35,7 +39,15 @@
                     <span class="badge sin-stock">Sin stock</span>
                     {% endif %}
                 </td>
-                <td>{{ h.ubicacion|default:"—" }}</td>
+                <td>
+                    {% if h.estado == 'bueno' %}
+                    <span class="badge ok">{{ h.get_estado_display }}</span>
+                    {% elif h.estado == 'regular' %}
+                    <span class="badge prestado">{{ h.get_estado_display }}</span>
+                    {% else %}
+                    <span class="badge sin-stock">{{ h.get_estado_display }}</span>
+                    {% endif %}
+                </td>
                 <td>
                     <div class="acciones">
                         <a href="{% url 'herramienta_editar' h.pk %}" class="btn btn-secundario btn-pequeno">Editar</a>

@@ -27,7 +27,7 @@
         <tbody>
             {% for p in activos %}
             <tr>
-                <td>{{ p.herramienta.nombre }}</td>
+                <td>{{ p.herramienta.nombre_comun }}</td>
                 <td>{{ p.alumno }}</td>
                 <td>{{ p.cantidad }}</td>
                 <td>{{ p.fecha_prestamo|date:"d/m/Y H:i" }}</td>
@@ -62,7 +62,7 @@
         <tbody>
             {% for p in devueltos %}
             <tr>
-                <td>{{ p.herramienta.nombre }}</td>
+                <td>{{ p.herramienta.nombre_comun }}</td>
                 <td>{{ p.alumno }}</td>
                 <td>{{ p.cantidad }}</td>
                 <td>{{ p.fecha_prestamo|date:"d/m/Y H:i" }}</td>
