@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión · Bodega Liceo A-26</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+    <div class="login-pagina">
+        <div class="login-caja">
+            <div class="logo-grande">B</div>
+            <h1>Bodega Liceo A-26</h1>
+            <p>Oscar Bonilla · Acceso al pañol</p>
+
+            {% if form.errors %}
+            <div class="alerta error">Usuario o contraseña incorrectos.</div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="campo">
+                    <label for="id_username">Usuario</label>
+                    <input type="text" name="username" id="id_username" autofocus required>
+                </div>
+                <div class="campo">
+                    <label for="id_password">Contraseña</label>
+                    <input type="password" name="password" id="id_password" required>
+                </div>
+                <button type="submit" class="btn btn-primario" style="width:100%">Entrar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

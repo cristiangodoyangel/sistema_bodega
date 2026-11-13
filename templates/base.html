@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Bodega{% endblock %} · Liceo A-26 Oscar Bonilla</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <nav class="navbar">
+        <a href="{% url 'inicio' %}" class="brand">
+            <span class="logo">B</span>
+            <span>Bodega · Liceo A-26</span>
+        </a>
+        <div class="nav-links">
+            <a href="{% url 'inicio' %}" class="{% if 'inicio' == request.resolver_match.url_name %}activo{% endif %}">Inicio</a>
+            <a href="{% url 'herramienta_lista' %}" class="{% if 'herramienta' in request.resolver_match.url_name %}activo{% endif %}">Inventario</a>
+            <a href="{% url 'alumno_lista' %}" class="{% if 'alumno' in request.resolver_match.url_name %}activo{% endif %}">Alumnos</a>
+            <a href="{% url 'prestamo_lista' %}" class="{% if 'prestamo' in request.resolver_match.url_name %}activo{% endif %}">Historial</a>
+            <form action="{% url 'logout' %}" method="post" style="margin:0">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-pequeno salir">Salir</button>
+            </form>
+        </div>
+    </nav>
+    {% endif %}
+
+    <main class="contenido">
+        {% if messages %}
+        <div class="mensajes">
+            {% for message in messages %}
+            <div class="alerta {% if message.tags == 'success' %}exito{% else %}error{% endif %}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% block contenido %}{% endblock %}
+    </main>
+
+    <footer class="pie">
+        Liceo A-26 <span>Oscar Bonilla</span> · Sistema de Bodega
+    </footer>
+</body>
+</html>

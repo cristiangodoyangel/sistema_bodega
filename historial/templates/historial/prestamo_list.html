@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Historial{% endblock %}
+
+{% block contenido %}
+<div class="encabezado">
+    <div>
+        <h1>Historial de préstamos</h1>
+        <p class="subtitulo">Registro de préstamos y devoluciones.</p>
+    </div>
+    <a href="{% url 'prestamo_nuevo' %}" class="btn btn-primario">+ Nuevo préstamo</a>
+</div>
+
+<div class="panel">
+    <h2 class="titulo-seccion">Préstamos activos</h2>
+    {% if activos %}
+    <table>
+        <thead>
+            <tr>
+                <th>Herramienta</th>
+                <th>Alumno</th>
+                <th>Cantidad</th>
+                <th>Fecha</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in activos %}
+            <tr>
+                <td>{{ p.herramienta.nombre }}</td>
+                <td>{{ p.alumno }}</td>
+                <td>{{ p.cantidad }}</td>
+                <td>{{ p.fecha_prestamo|date:"d/m/Y H:i" }}</td>
+                <td>
+                    <form action="{% url 'prestamo_devolver' p.pk %}" method="post" style="margin:0">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-secundario btn-pequeno">Devolver</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="vacio">No hay préstamos activos.</p>
+    {% endif %}
+</div>
+
+<div class="panel">
+    <h2 class="titulo-seccion">Devueltos</h2>
+    {% if devueltos %}
+    <table>
+        <thead>
+            <tr>
+                <th>Herramienta</th>
+                <th>Alumno</th>
+                <th>Cantidad</th>
+                <th>Prestado</th>
+                <th>Devuelto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in devueltos %}
+            <tr>
+                <td>{{ p.herramienta.nombre }}</td>
+                <td>{{ p.alumno }}</td>
+                <td>{{ p.cantidad }}</td>
+                <td>{{ p.fecha_prestamo|date:"d/m/Y H:i" }}</td>
+                <td>{{ p.fecha_devolucion|date:"d/m/Y H:i" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="vacio">Aún no hay devoluciones registradas.</p>
+    {% endif %}
+</div>
+{% endblock %}

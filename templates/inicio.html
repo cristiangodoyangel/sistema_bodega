@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Inicio{% endblock %}
+
+{% block contenido %}
+<div class="encabezado">
+    <div>
+        <h1>Panel de Bodega</h1>
+        <p class="subtitulo">Préstamo de herramientas a los cursos de 3° y 4° medio.</p>
+    </div>
+    <a href="{% url 'prestamo_nuevo' %}" class="btn btn-primario">+ Nuevo préstamo</a>
+</div>
+
+<div class="cards">
+    <div class="card">
+        <div class="numero">{{ total_herramientas }}</div>
+        <div class="etiqueta">Herramientas registradas</div>
+    </div>
+    <div class="card">
+        <div class="numero">{{ total_alumnos }}</div>
+        <div class="etiqueta">Alumnos registrados</div>
+    </div>
+    <div class="card">
+        <div class="numero">{{ prestamos_activos }}</div>
+        <div class="etiqueta">Préstamos activos</div>
+    </div>
+</div>
+
+<div class="panel">
+    <h2 class="titulo-seccion">Préstamos activos</h2>
+    {% if prestamos_recientes %}
+    <table>
+        <thead>
+            <tr>
+                <th>Herramienta</th>
+                <th>Alumno</th>
+                <th>Cantidad</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in prestamos_recientes %}
+            <tr>
+                <td>{{ p.herramienta.nombre }}</td>
+                <td>{{ p.alumno }}</td>
+                <td>{{ p.cantidad }}</td>
+                <td>{{ p.fecha_prestamo|date:"d/m/Y H:i" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="vacio">No hay préstamos activos por el momento.</p>
+    {% endif %}
+</div>
+{% endblock %}

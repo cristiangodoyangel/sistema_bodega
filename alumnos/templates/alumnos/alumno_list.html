@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Alumnos{% endblock %}
+
+{% block contenido %}
+<div class="encabezado">
+    <div>
+        <h1>Alumnos</h1>
+        <p class="subtitulo">Estudiantes de 3° y 4° medio.</p>
+    </div>
+    <a href="{% url 'alumno_nuevo' %}" class="btn btn-primario">+ Nuevo alumno</a>
+</div>
+
+<div class="panel">
+    {% if alumnos %}
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Curso</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in alumnos %}
+            <tr>
+                <td>{{ a.nombre }}</td>
+                <td>{{ a.apellido }}</td>
+                <td><span class="badge devuelto">{{ a.get_curso_display }}</span></td>
+                <td>
+                    <div class="acciones">
+                        <a href="{% url 'alumno_editar' a.pk %}" class="btn btn-secundario btn-pequeno">Editar</a>
+                        <a href="{% url 'alumno_eliminar' a.pk %}" class="btn btn-peligro btn-pequeno">Eliminar</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="vacio">No hay alumnos registrados.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Inventario{% endblock %}
+
+{% block contenido %}
+<div class="encabezado">
+    <div>
+        <h1>Inventario</h1>
+        <p class="subtitulo">Herramientas disponibles en el pañol.</p>
+    </div>
+    <a href="{% url 'herramienta_nueva' %}" class="btn btn-primario">+ Nueva herramienta</a>
+</div>
+
+<div class="panel">
+    {% if herramientas %}
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Total</th>
+                <th>Disponibles</th>
+                <th>Ubicación</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for h in herramientas %}
+            <tr>
+                <td>{{ h.nombre }}</td>
+                <td>{{ h.cantidad_total }}</td>
+                <td>
+                    {% if h.disponibles > 0 %}
+                    <span class="badge ok">{{ h.disponibles }}</span>
+                    {% else %}
+                    <span class="badge sin-stock">Sin stock</span>
+                    {% endif %}
+                </td>
+                <td>{{ h.ubicacion|default:"—" }}</td>
+                <td>
+                    <div class="acciones">
+                        <a href="{% url 'herramienta_editar' h.pk %}" class="btn btn-secundario btn-pequeno">Editar</a>
+                        <a href="{% url 'herramienta_eliminar' h.pk %}" class="btn btn-peligro btn-pequeno">Eliminar</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="vacio">No hay herramientas registradas.</p>
+    {% endif %}
+</div>
+{% endblock %}
